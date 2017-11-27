@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>6DoF data test</title>
+  </head>
+  <body>
+<h1>HTML JS TEST: Try to load 6dof data from device</h1>
+<div id="info" class="info"></div>
+
+<button id="update" class="update" onclick="fetchdata()">Update Info</button>
+
+<button id="reset" class="reset" onclick="reset()">Reset</button>
+
+<script type="text/javascript">
+
+function reset(){
+  var ret = window.sdof.reset6Dof();
+  var info = document.getElementById("info");
+  if(ret != ""){
+    info.innerHTML = ret;
+    console.log("after reset, get 6dof from device " + ret);
+    //console.log(JSON.parse(ret));
+  }
+  else {
+    info.innerHTML = "after reset, can not get right data";
+    console.log("after reset, can not get 6dof data from device");
+  }
+}
+
+function fetchdata(){
+  var ret = window.sdof.get6Dof();
+  var info = document.getElementById("info");
+  if(ret != ""){
+
+    var jsonDT = JSON.parse(ret);
+    info.innerHTML = JSON.stringify(jsonDT);
+    console.log("get 6dof from device " + ret);
+    console.log("rotation x: " + jsonDT.rotation.x + "  y: " + jsonDT.rotation.y + "  z: " + jsonDT.rotation.z + "  w: " + jsonDT.rotation.w);
+    console.log("position x: " + jsonDT.position.x + "  y: " + jsonDT.position.y + "  z: " + jsonDT.position.z);
+    //console.log(JSON.parse(ret));
+  }
+  else {
+    info.innerHTML = "can not get right data";
+    console.log("can not get 6dof data from device");
+  }
+}
+
+
+fetchdata();
+
+</script>
+  </body>
+</html>

@@ -161,7 +161,18 @@ Java_com_realmax_quacomm6doftest_MainActivity_stringFromJNI(
             poseState.pose.rotation.z,
             poseState.pose.rotation.w);
 
-    sprintf(str, "Pose data from 1 millisecond ago => Position: (%0.2f, %0.2f, %0.2f); Orientation: (%0.2f, %0.2f, %0.2f, %0.2f)",  poseState.pose.position.x,
+    //'{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}'
+    //"\"" "Hello" "\""
+
+//    sprintf(str, "Pose data from 1 millisecond ago => Position: (%0.2f, %0.2f, %0.2f); Orientation: (%0.2f, %0.2f, %0.2f, %0.2f)",  poseState.pose.position.x,
+//            poseState.pose.position.y,
+//            poseState.pose.position.z,
+//            poseState.pose.rotation.x,
+//            poseState.pose.rotation.y,
+//            poseState.pose.rotation.z,
+//            poseState.pose.rotation.w);
+
+    sprintf(str, "{\"position\":{ \"x\":%0.2f, \"y\":%0.2f, \"z\":%0.2f},  \"rotation\": {\"x\":%0.2f, \"y\":%0.2f, \"z\":%0.2f, \"w\":%0.2f}}",  poseState.pose.position.x,
             poseState.pose.position.y,
             poseState.pose.position.z,
             poseState.pose.rotation.x,
