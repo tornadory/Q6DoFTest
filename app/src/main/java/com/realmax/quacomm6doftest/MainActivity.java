@@ -76,11 +76,17 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webview);
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setAllowContentAccess(true);
+        webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        webView.getSettings().setDisplayZoomControls(true);
+        //webView.getSettings().setSafeBrowsingEnabled(false);
         QualComm6DofObject qob = new QualComm6DofObject();
         webView.addJavascriptInterface(qob, "sdof");
 
         //webView.loadUrl("https://www.realmaxdemos.com/Demos/Johnny/icve_demo/index.html");
-        webView.loadUrl("file:///android_asset/www/index.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
+        webView.loadUrl("file:///android_asset/www/demo.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
     }
 
 
