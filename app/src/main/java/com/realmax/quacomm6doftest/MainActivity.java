@@ -1,6 +1,7 @@
 package com.realmax.quacomm6doftest;
 
 import android.annotation.SuppressLint;
+import android.net.http.SslError;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +10,9 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -51,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
                 //try to initialize the svr service
-                surfaceHolder = surfaceHolder;
-                tv.setText(stringFromJNI(surfaceHolder.getSurface()));
+                //surfaceHolder = surfaceHolder;
+                //tv.setText(stringFromJNI(surfaceHolder.getSurface()));
+
+                initSVR(surfaceHolder.getSurface());
             }
 
             @Override
@@ -81,12 +86,22 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setAllowContentAccess(true);
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         webView.getSettings().setDisplayZoomControls(true);
+
+        webView.setWebViewClient(new SSLTolerentWebViewClient());
+
         //webView.getSettings().setSafeBrowsingEnabled(false);
         QualComm6DofObject qob = new QualComm6DofObject();
         webView.addJavascriptInterface(qob, "sdof");
 
-        //webView.loadUrl("https://www.realmaxdemos.com/Demos/Johnny/icve_demo/index.html");
-        webView.loadUrl("file:///android_asset/www/demo.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
+        //webView.loadUrl("file:///android_asset/www/demo0.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
+        webView.loadUrl("https://139.196.195.57/pub/test/demo.html");
+    }
+
+    private class SSLTolerentWebViewClient extends WebViewClient {
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed();
+        }
     }
 
 
@@ -103,19 +118,30 @@ public class MainActivity extends AppCompatActivity {
      * which is packaged with this application.
      */
     public native String stringFromJNI(Surface surface);
+    public native boolean initSVR(Surface surface1);
+    public native String getPose();
+    public native boolean exitSVR();
+    public native boolean resetSVR();  //TBD
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        exitSVR();
+    }
 
     class QualComm6DofObject{
         @android.webkit.JavascriptInterface
         public String get6Dof(){
-            return stringFromJNI(null);
+            return getPose();
+            //return stringFromJNI(null);
             //return "try to get 6dof data from QualComm6DofObject";
         }
 
         @android.webkit.JavascriptInterface
-        public String reset6Dof(){
+        public boolean reset6Dof(){
+            return resetSVR(); //TBD
             //return stringFromJNI(surfaceHolder.getSurface());
-            return Reset6Dof(); //error
+            //return Reset6Dof(); //error
             //eglCreateWindowSurface() returned error 12291
             //E/libEGL: eglCreateWindowSurface:481 error 3003 (EGL_BAD_ALLOC)
             //E/libEGL: eglCreateWindowSurface: native_window_api_connect (win=0xd24ff008) failed (0xffffffea) (already connected to another API?)
