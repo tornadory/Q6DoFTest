@@ -79,6 +79,8 @@
         camera.position.y = 0;
         camera.position.z = 0;
 
+        camera.useQuaternion=true;
+
 				scene = new THREE.Scene();
 				scene.background = new THREE.CubeTextureLoader()
 					.setPath( 'textures/cube/Park3Med/' )
@@ -107,9 +109,7 @@
         //
 				// }
         for ( var i = -10; i <= 10; i++ ) {
-
 					for ( var j = -10; j <= 10; j++ ) {
-
             for ( var h = -2; h <= 2; h++ ) {
               var material = new THREE.MeshBasicMaterial( { color: new THREE.Color(Math.random(),Math.random(),Math.random()), refractionRatio: 0.95 } );
   						var mesh = new THREE.Mesh( geometry, material );
@@ -118,7 +118,6 @@
   						mesh.position.z = j;
   						scene.add( mesh );
             }
-
 					}
         }
 				//
@@ -189,6 +188,13 @@
 
         //setInterval(render, 200);
 			}
+
+      function updateController(data){
+        //console.log("updateController with data: " + data);
+        var jsonDT = JSON.parse(data);
+        camera.position.set(0 - parseFloat(jsonDT.position.x), 0 - parseFloat(jsonDT.position.y) , 0 - parseFloat(jsonDT.position.z));
+        camera.quaternion.set(parseFloat(jsonDT.rotation.x), parseFloat(jsonDT.rotation.y), parseFloat(jsonDT.rotation.z), 0 - parseFloat(jsonDT.rotation.w));
+      }
 
 		</script>
 

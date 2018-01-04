@@ -153,13 +153,13 @@ Java_com_realmax_quacomm6doftest_MainActivity_stringFromJNI(
     char str[256];
     float predictedTimeMs = svrGetPredictedDisplayTime();
     svrHeadPoseState poseState = svrGetPredictedHeadPose(predictedTimeMs); //if not initialized or not in vr mode, will return 00000000
-    LOG_INFO("Pose data from 1 millisecond ago => Position: (%0.2f, %0.2f, %0.2f); Orientation: (%0.2f, %0.2f, %0.2f, %0.2f)",  poseState.pose.position.x,
-            poseState.pose.position.y,
-            poseState.pose.position.z,
-            poseState.pose.rotation.x,
-            poseState.pose.rotation.y,
-            poseState.pose.rotation.z,
-            poseState.pose.rotation.w);
+//    LOG_INFO("Pose data from 1 millisecond ago => Position: (%0.2f, %0.2f, %0.2f); Orientation: (%0.2f, %0.2f, %0.2f, %0.2f)",  poseState.pose.position.x,
+//            poseState.pose.position.y,
+//            poseState.pose.position.z,
+//            poseState.pose.rotation.x,
+//            poseState.pose.rotation.y,
+//            poseState.pose.rotation.z,
+//            poseState.pose.rotation.w);
 
     //'{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}'
     //"\"" "Hello" "\""
@@ -335,6 +335,11 @@ Java_com_realmax_quacomm6doftest_MainActivity_exitSVR(JNIEnv *env, jobject insta
 //    javaEnv->DeleteGlobalRef(plugin.activity);
 //    plugin.activity = NULL;
 //    plugin.isInitialized = false;
+
+
+//    SvrResult svrEndVr()
+//        LOGI("svrEndVr");
+//    LOGI("Stopping Timewarp...");
 }
 
 extern "C"
