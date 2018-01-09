@@ -108,9 +108,9 @@
 				// 	spheres.push( mesh );
         //
 				// }
-        for ( var i = -10; i <= 10; i++ ) {
-					for ( var j = -10; j <= 10; j++ ) {
-            for ( var h = -2; h <= 2; h++ ) {
+        for ( var i = -10; i <= 10; i=i+2 ) {
+					for ( var j = -10; j <= 10; j=j+2 ) {
+            for ( var h = -2; h <= 2; h=h+2) {
               var material = new THREE.MeshBasicMaterial( { color: new THREE.Color(Math.random(),Math.random(),Math.random()), refractionRatio: 0.95 } );
   						var mesh = new THREE.Mesh( geometry, material );
   						mesh.position.x = i;

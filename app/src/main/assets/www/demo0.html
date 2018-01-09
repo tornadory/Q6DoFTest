@@ -60,6 +60,8 @@
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
 
+			var worker;
+
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
 			init();
@@ -115,6 +117,15 @@
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
+				if(typeof(Worker) !== "undefined"){
+					if(typeof(worker) == "undefined"){
+						worker = new Worker("js/get6dof.js");
+					}
+					worker.onmessage = function(event){
+						console.log("worker onmessage: ", event);
+					}
+				}
+
 			}
 
 			function onWindowResize() {
@@ -149,26 +160,29 @@
 
 			function render() {
 
-        var ret = window.sdof.get6Dof();
+				// camera.position.set(0 - parseFloat(jsonDT.position.x), 0 - parseFloat(jsonDT.position.y) , 0 - parseFloat(jsonDT.position.z));
+				// camera.quaternion.set(parseFloat(jsonDT.rotation.x), parseFloat(jsonDT.rotation.y), parseFloat(jsonDT.rotation.z), 0 - parseFloat(jsonDT.rotation.w));
 
 				var timer = 0.0001 * Date.now();
 
-				camera.position.x += ( mouseX - camera.position.x ) * .05;
-				camera.position.y += ( - mouseY - camera.position.y ) * .05;
-				camera.lookAt( scene.position );
-
-				for ( var i = 0, il = spheres.length; i < il; i ++ ) {
-
-					var sphere = spheres[ i ];
-
-					sphere.position.x = 5000 * Math.cos( timer + i );
-					sphere.position.y = 5000 * Math.sin( timer + i * 1.1 );
-
-				}
+				// camera.position.x += ( mouseX - camera.position.x ) * .05;
+				// camera.position.y += ( - mouseY - camera.position.y ) * .05;
+				// camera.lookAt( scene.position );
+        //
+				// for ( var i = 0, il = spheres.length; i < il; i ++ ) {
+        //
+				// 	var sphere = spheres[ i ];
+        //
+				// 	sphere.position.x = 5000 * Math.cos( timer + i );
+				// 	sphere.position.y = 5000 * Math.sin( timer + i * 1.1 );
+        //
+				// }
 
 				effect.render( scene, camera );
 
 			}
+
+
 
 		</script>
 

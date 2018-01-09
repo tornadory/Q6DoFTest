@@ -1,4 +1,6 @@
-package com.realmax.quacomm6doftest;
+package com.RMSR.quacomm6doftest;
+
+import android.util.Log;
 
 /**
  * Created by admin on 12/29/2017.
@@ -114,6 +116,7 @@ public class ProtocolXWYF000Normal {
 
     public ProtocolXWYF000Normal(byte[] dataIn)
     {
+        //Log.e("PrototcalBT", "the data input length is " + dataIn.length); //20
         if(dataIn.length < 20)
         {
             return;
@@ -137,6 +140,7 @@ public class ProtocolXWYF000Normal {
 
         if(dataIn.length >= 46)
         {
+            Log.e("PrototcalBT", "the data input length >= 46, so you can get gyro directly"); //no
             stamp = ProtocolXWYF000Normal.get_u64_from_bytes(dataIn, 20);
             gyro = get_xyz_from_bytes(dataIn, 28);
             accel = get_xyz_from_bytes(dataIn, 34);

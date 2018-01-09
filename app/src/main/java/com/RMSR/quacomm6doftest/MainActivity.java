@@ -1,6 +1,7 @@
-package com.realmax.quacomm6doftest;
+package com.RMSR.quacomm6doftest;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -142,6 +143,24 @@ public class MainActivity extends AppCompatActivity {
 
 //                webView.post(new J2JhelperBT(protocol.toJSON()));
                 btControllerData = protocol.toJSON();
+
+                int button = protocol.ioKeyBytes;
+                if(button == 2){
+                    //reset
+                    Log.e(TAG, "button 2");
+                    resetApp();
+                }
+                if(button == 4){
+                    //quit
+                    Log.e(TAG, "button 4");
+                    gatt.disconnect();
+                    mBluetoothAdapter.cancelDiscovery();
+                    mBluetoothAdapter.disable();
+                    finishAndRemoveTask();
+
+//                    finish();
+//                    System.exit(0);
+                }
             }
             else
             {
@@ -252,29 +271,27 @@ public class MainActivity extends AppCompatActivity {
         QualComm6DofObject qob = new QualComm6DofObject();
         webView.addJavascriptInterface(qob, "sdof");
 
-        //webView.loadUrl("file:///android_asset/www/demo.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
-        //webView.loadUrl("https://139.196.195.57/pub/test/demo.html");
+//        webView.loadUrl("https://139.196.195.57/realstudio/editor/player.html?url=..%2Fliteserver%2Fsrc%2Ffiles%2Fjohnnyz%2Fprojects%2Fcubes-with-controller.scene.json");
+
+//        webView.loadUrl("https://139.196.195.57/pub/test/demo.html");
+//        webView.loadUrl("file:///android_asset/www/demo.html");
+//        webView.loadUrl("file:///android_asset/www/demo.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
+//        webView.loadUrl("file:///android_asset/www/demo0.html");
+        webView.loadUrl("file:///android_asset/www/demo00.html");
+//        webView.loadUrl("https://139.196.195.57/pub/test/demo.html");
+
+
 //        webView.loadUrl("https://139.196.195.57/realstudio/editor/player.html?url=..%2Fliteserver%2Fsrc%2Ffiles%2Fjohnnyz%2Fprojects%2Fcubes-creator.scene.json");
 //        webView.loadUrl("https://139.196.195.57/realstudio/editor/player.html?url=..%2Fliteserver%2Fsrc%2Ffiles%2Fjohnnyz%2Fprojects%2Ftest222.scene.json");
 //        webView.loadUrl("https://139.196.195.57/realstudio/editor/player.html?url=..%2Fliteserver%2Fsrc%2Ffiles%2Fjohnnyz%2Fprojects%2Ftest6dofar.scene.json");
 //        webView.loadUrl("https://139.196.195.57/realstudio/editor/player.html?url=..%2Fliteserver%2Fsrc%2Ffiles%2Fjohnnyz%2Fprojects%2Fcube6.scene.json");
-        //webView.loadUrl("https://139.196.195.57/realstudio/editor/player.html?url=..%2Fliteserver%2Fsrc%2Ffiles%2Fjohnnyz%2Fprojects%2Fcube6.scene.json");
-        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/chEpiDcgYo3KXiQy/_main.scene.json");
-
-        //begin BT
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        mBluetoothAdapter = bluetoothManager.getAdapter();
-        Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
+//        webView.loadUrl("https://139.196.195.57/realstudio/editor/player.html?url=..%2Fliteserver%2Fsrc%2Ffiles%2Fjohnnyz%2Fprojects%2Fcube6.scene.json");
 
 
-        for(BluetoothDevice d:devices)
-        {
-            Log.d(TAG, d.getName());
+//        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/chEpiDcgYo3KXiQy/_main.scene.json");
 
-            d.connectGatt(this, true, new GattConnectCallback());
-        }
-        //end BT
+//        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/8Z0hWxIXhovbRZ3W/_main.scene.json");
+
     }
 
 //    class J2Jhelper implements Runnable{
@@ -314,6 +331,13 @@ public class MainActivity extends AppCompatActivity {
         return stringFromJNI(surfaceView.getHolder().getSurface());
     }
 
+    public void resetApp(){
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
 
 
 
@@ -339,6 +363,22 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         isWebReady = false;
         isRunning = false;
+
+        //begin BT
+        final BluetoothManager bluetoothManager =
+                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+        mBluetoothAdapter.enable();
+        Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
+
+
+        for(BluetoothDevice d:devices)
+        {
+            Log.d(TAG, d.getName());
+
+            d.connectGatt(this, true, new GattConnectCallback());
+        }
+        //end BT
     }
 
     @Override
@@ -364,15 +404,16 @@ public class MainActivity extends AppCompatActivity {
 
         @android.webkit.JavascriptInterface
         public void reset6Dof(){
-            if(isRunning){
+            resetApp();
+//            if(isRunning){
+////                finish();
+////                startActivity(getIntent());
 //                finish();
+//                overridePendingTransition(0, 0);
 //                startActivity(getIntent());
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
-
-            }
+//                overridePendingTransition(0, 0);
+//
+//            }
 //            if(isRunning)
 //                return resetSVR(); //TBD
 //            else

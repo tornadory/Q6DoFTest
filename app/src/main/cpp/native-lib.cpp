@@ -19,7 +19,7 @@ JNIEXPORT jstring
 
 
 JNICALL
-Java_com_realmax_quacomm6doftest_MainActivity_stringFromJNI(
+Java_com_RMSR_quacomm6doftest_MainActivity_stringFromJNI(
         JNIEnv *env,
         jobject thiz,
         jobject surface) {
@@ -161,9 +161,6 @@ Java_com_realmax_quacomm6doftest_MainActivity_stringFromJNI(
 //            poseState.pose.rotation.z,
 //            poseState.pose.rotation.w);
 
-    //'{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}'
-    //"\"" "Hello" "\""
-
 //    sprintf(str, "Pose data from 1 millisecond ago => Position: (%0.2f, %0.2f, %0.2f); Orientation: (%0.2f, %0.2f, %0.2f, %0.2f)",  poseState.pose.position.x,
 //            poseState.pose.position.y,
 //            poseState.pose.position.z,
@@ -186,7 +183,7 @@ Java_com_realmax_quacomm6doftest_MainActivity_stringFromJNI(
 
 extern "C"
 JNIEXPORT jboolean JNICALL
-Java_com_realmax_quacomm6doftest_MainActivity_initSVR(JNIEnv *env, jobject instance,
+Java_com_RMSR_quacomm6doftest_MainActivity_initSVR(JNIEnv *env, jobject instance,
                                                       jobject surface) {
     LOG_INFO("initSVR");
 
@@ -320,7 +317,7 @@ Java_com_realmax_quacomm6doftest_MainActivity_initSVR(JNIEnv *env, jobject insta
 
 extern "C"
 JNIEXPORT jboolean JNICALL
-Java_com_realmax_quacomm6doftest_MainActivity_exitSVR(JNIEnv *env, jobject instance) {
+Java_com_RMSR_quacomm6doftest_MainActivity_exitSVR(JNIEnv *env, jobject instance) {
     LOG_INFO("exitSVR");
     if (svrEndVr() != SVR_ERROR_NONE)
     {
@@ -335,22 +332,17 @@ Java_com_realmax_quacomm6doftest_MainActivity_exitSVR(JNIEnv *env, jobject insta
 //    javaEnv->DeleteGlobalRef(plugin.activity);
 //    plugin.activity = NULL;
 //    plugin.isInitialized = false;
-
-
-//    SvrResult svrEndVr()
-//        LOGI("svrEndVr");
-//    LOGI("Stopping Timewarp...");
 }
 
 extern "C"
 JNIEXPORT jboolean JNICALL
-Java_com_realmax_quacomm6doftest_MainActivity_resetSVR(JNIEnv *env, jobject instance) {
+Java_com_RMSR_quacomm6doftest_MainActivity_resetSVR(JNIEnv *env, jobject instance) {
     // TODO
 }
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_realmax_quacomm6doftest_MainActivity_getPose(JNIEnv *env, jobject instance) {
+Java_com_RMSR_quacomm6doftest_MainActivity_getPose(JNIEnv *env, jobject instance) {
     char str[256];
     float predictedTimeMs = svrGetPredictedDisplayTime();
     svrHeadPoseState poseState = svrGetPredictedHeadPose(predictedTimeMs); //if not initialized or not in vr mode, will return 00000000
