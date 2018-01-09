@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
 //        webView.loadUrl("file:///android_asset/www/demo.html");
 //        webView.loadUrl("file:///android_asset/www/demo.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
 //        webView.loadUrl("file:///android_asset/www/demo0.html");
-        webView.loadUrl("file:///android_asset/www/demo00.html");
+//        webView.loadUrl("file:///android_asset/www/demo00.html");
 //        webView.loadUrl("https://139.196.195.57/pub/test/demo.html");
 
 
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/chEpiDcgYo3KXiQy/_main.scene.json");
 
-//        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/8Z0hWxIXhovbRZ3W/_main.scene.json");
+        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/8Z0hWxIXhovbRZ3W/_main.scene.json");
 
     }
 
