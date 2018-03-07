@@ -290,7 +290,11 @@ public class MainActivity extends AppCompatActivity {
 
 //        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/chEpiDcgYo3KXiQy/_main.scene.json");
 
-        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/8Z0hWxIXhovbRZ3W/_main.scene.json");
+//        webView.loadUrl("https://192.168.1.116/projects/published-project?url=../../projects/8Z0hWxIXhovbRZ3W/_main.scene.json");
+        //
+        //https://192.168.100.11/pub/realcenter/frontend/web/realstudio/editor/player.html?url=..%2F..%2Fprojects%2F7THKkZszyLThPRxs%2F_main.scene.json
+
+//        webView.loadUrl("https://realcenter.realmax.com/projects/published-project?url=..%2F..%2Fprojects%2FcogkdTZ2qQPuqYuu%2F_main.scene.json");
 
     }
 
