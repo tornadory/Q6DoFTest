@@ -1,6 +1,7 @@
 package com.RMSR.quacomm6doftest;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -35,7 +36,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private static final String TAG = "Q6DoFTest";
     SurfaceView surfaceView;
@@ -275,9 +276,10 @@ public class MainActivity extends AppCompatActivity {
 
 //        webView.loadUrl("https://139.196.195.57/pub/test/demo.html");
 //        webView.loadUrl("file:///android_asset/www/demo.html");
-//        webView.loadUrl("file:///android_asset/www/demo.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
+        webView.loadUrl("file:///android_asset/www/demo.html"); //use local file, due to can not access the external URL, maybe related with WiFi or App permission
 //        webView.loadUrl("file:///android_asset/www/demo0.html");
 //        webView.loadUrl("file:///android_asset/www/demo00.html");
+
 //        webView.loadUrl("https://139.196.195.57/pub/test/demo.html");
 
 
@@ -294,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
         //
         //https://192.168.100.11/pub/realcenter/frontend/web/realstudio/editor/player.html?url=..%2F..%2Fprojects%2F7THKkZszyLThPRxs%2F_main.scene.json
 
-//        webView.loadUrl("https://realcenter.realmax.com/projects/published-project?url=..%2F..%2Fprojects%2FcogkdTZ2qQPuqYuu%2F_main.scene.json");
+//        webView.loadUrl("https://realcenter.realmax.com/projects/published-project?url=..%2F..%2Fprojects%2FcogkdTZ2qQPuqYuu%2F_main.scene.json"); //still alive project
 
     }
 
